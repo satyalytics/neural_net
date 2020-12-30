@@ -1,6 +1,8 @@
 """
 Module to build a simple neural network.
 """
+import numpy as np
+from activations import relu, sigmoid
 
 class Neural_net:
     
@@ -25,10 +27,20 @@ class Neural_net:
         input_shape = self.X.shape[1]
         n_nodes = len(self.n_node)
         
-        self.weights = np.array([1]).reshape(input_shape, n_nodes)
+        self.weights = np.ones(input_shape * n_nodes).reshape(input_shape, n_nodes)
 
     
     def fit(self, X, y):
         self.X = X
         self.y = y
         
+        pred = np.matmul(self.X, self.weights)
+        if self.activation == 'relu':
+            y_pred = relu(pred)
+        elif self.activation == 'sigmoid':
+            y_pred = sigmoid(pred)
+            
+        return y_pred
+    
+    def feed_foward(self):
+        pass
